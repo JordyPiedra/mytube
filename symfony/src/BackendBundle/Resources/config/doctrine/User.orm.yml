@@ -1,0 +1,63 @@
+BackendBundle\Entity\User:
+    type: entity
+    table: users
+    id:
+        idUser:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_user
+            generator:
+                strategy: IDENTITY
+    fields:
+        rolUser:
+            type: string
+            nullable: false
+            length: 20
+            options:
+                fixed: false
+            column: rol_user
+        nameUser:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: name_user
+        unameUser:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: uname_user
+        emailUser:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: email_user
+        passwUser:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: passw_user
+        imageUser:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: image_user
+        createUser:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: create_user
+    lifecycleCallbacks: {  }

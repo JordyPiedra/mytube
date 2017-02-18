@@ -1,0 +1,77 @@
+BackendBundle\Entity\Video:
+    type: entity
+    table: video
+    indexes:
+        fk_video_users_idx:
+            columns:
+                - id_user
+    id:
+        idVideo:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+            id: true
+            column: id_video
+            generator:
+                strategy: IDENTITY
+    fields:
+        titleVideo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: title_video
+        descriptionVideo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: description_video
+        statusVideo:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+            column: status_video
+        imageVideo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: image_video
+        pathVideo:
+            type: string
+            nullable: true
+            length: 255
+            options:
+                fixed: false
+            column: path_video
+        createUser:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: create_user
+        updateUser:
+            type: datetime
+            nullable: true
+            options:
+                default: CURRENT_TIMESTAMP
+            column: update_user
+    manyToOne:
+        idUser:
+            targetEntity: User
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_user:
+                    referencedColumnName: id_user
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

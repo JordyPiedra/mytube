@@ -1,0 +1,10 @@
+composer create-project symfony/framework-standard-edition symfony/ "3.2.*"
+
+Generar el Bundle
+php bin/console generate:bundle --namespace=BackendBundle --format=yml
+
+Generar Doctrinas BDD
+php bin/console doctrine:mapping:import BackendBundle yml
+
+Generar entidades
+php bin/console doctrine:generate:entities BackendBundle
