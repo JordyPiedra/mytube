@@ -181,9 +181,11 @@ class VideoController extends Controller
 
         $query = $em->createQuery($dql);
         
+        
         $page = $request->query->getInt("page",1);
+        $items_per_page = $request->query->getInt("items_per_page",5);
         $paginator= $this->get("knp_paginator");
-        $items_per_page=6;
+       
 
         $pagination = $paginator->paginate($query,$page, $items_per_page);
         $total_items_count=$pagination->getTotalItemCount();
@@ -192,10 +194,54 @@ class VideoController extends Controller
             "status" => "success",
             "total_items_count" => $total_items_count,
             "page_actual" => $page,
-            "items_per_page"=>$items_per_page
+            "items_per_page"=>$items_per_page,
+            "total_pages" => ceil($total_items_count/$items_per_page),
+            "data"=>$pagination
         ];
+        return $helpers->json_($data);
 
     }
+
+    public function lastsVideosAction(Request $request){
+        $helpers= $this->get('app.helpers');
+        $em=$this->getDoctrine()->getManager();
+        $dql="SELECT v FROM BackendBundle:Video v ORDER BY v.createUser DESC";
+        $query = $em->createQuery($dql)->setMaxResults(5);     
+        $videos = $query->getResult();
+        $data = [
+            "status" => "success",
+            "data"=>$videos
+        ];
+        return $helpers->json_($data);
+
+    }
+
+    public function videoAction(Request $request, $id=null){
+        $helpers= $this->get('app.helpers');
+        $em=$this->getDoctrine()->getManager();
+        $video_id=$id;
+        $video = $em->getRepository('BackendBundle:Video')->findOneBy(
+                    ['idVideo' => $video_id]);
+        
+        if($video)            
+        {
+         $data = [
+            "status" => "success",
+            "data"=>$video
+         ];
+
+        }else
+        {
+         $data = [
+            "status" => "error",
+            "message"=>"Video dont exist!"
+         ];
+        }
+        return $helpers->json_($data);
+
+    }
+
+    
 
 
 
