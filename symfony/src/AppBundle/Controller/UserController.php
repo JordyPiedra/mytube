@@ -154,4 +154,46 @@ class UserController extends Controller
         } else
             return $helpers->json_(["status"=>"error", "code"=>400,"message"=>"Incomplete data!"]);
     }
+
+    public function channelAction(Request $request, $id=null){
+        $helpers= $this->get('app.helpers');
+        $em=$this->getDoctrine()->getManager();
+
+        if($id)
+        {
+            $user= $em->getRepository("BackendBundle:User")->findOneBy(["idUser" => $id]);
+            if(count($user)==1)
+            {
+                $dql="SELECT v FROM BackendBundle:Video v WHERE v.idUser = $id ORDER BY v.idVideo DESC";
+                $query = $em->createQuery($dql);
+                $page = $request->query->getInt("page",1);
+                $items_per_page = $request->query->getInt("items_per_page",5);
+                $paginator= $this->get("knp_paginator");
+            
+
+                $pagination = $paginator->paginate($query,$page, $items_per_page);
+                $total_items_count=$pagination->getTotalItemCount();
+
+                $data = [
+                    "status" => "success",
+                    "total_items_count" => $total_items_count,
+                    "page_actual" => $page,
+                    "items_per_page"=>$items_per_page,
+                    "total_pages" => ceil($total_items_count/$items_per_page),
+                    "data"=>["user" => $user , "videos" => $pagination ]
+                ];
+                return $helpers->json_($data);
+            }else
+            return $helpers->json_(["status"=>"error", "code"=>400,"message"=>"User not exist!"]);
+        }else
+        return $helpers->json_(["status"=>"error", "code"=>400,"message"=>"Incomplete data!"]);
+
+        
+        
+
+        
+
+        
+
+    }
 }
