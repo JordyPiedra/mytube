@@ -20,7 +20,7 @@ class Comment
     /**
      * @var \DateTime
      */
-    private $createComment = 'CURRENT_TIMESTAMP';
+    private $createComment = '';
 
     /**
      * @var \BackendBundle\Entity\User
