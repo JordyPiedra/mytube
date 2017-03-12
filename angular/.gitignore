@@ -1,6 +1,0 @@
-node_modules/*
-typings/*
-app/components/*.js
-app/components/*.map
-app/*.js
-app/*.map
