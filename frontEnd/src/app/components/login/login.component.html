@@ -3,16 +3,20 @@
 <h1>Identifícate</h1>
 <hr>
   <div class="col-md-12">
-     <form action="" class="col-md-4">
+     <form #loginForm="ngForm"  (ngSubmit)="onSubmit()"
+     action="" class="col-md-4">
 
        <p>
          <label for="email">Email:</label>
-         <input type="text" class="form-control" required>
+         <input #email="ngForm" ngControl="email" type="text" class="form-control" required>
+         <span *ngIf="!email.valid">El Email es oblitario</span> 
        </p>
        <p>
          <label for="">Contraseña:</label>
          <input type="password" class="form-control" required>
        </p>
+
+       <input type="submit" value="Entrar" class="btn btn-outline-primary">
       
      </form>
   </div>
