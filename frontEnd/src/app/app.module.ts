@@ -7,6 +7,10 @@ import { HttpModule } from '@angular/http';
 //Rutas
 import { APP_ROUTING } from './app.routes';
 
+//Services
+import { LoginService } from './services/login.service';
+
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
@@ -28,7 +32,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     HttpModule,
     APP_ROUTING
   ],
-  providers: [ ],
+  providers: [ LoginService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
