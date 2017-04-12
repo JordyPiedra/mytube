@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AppSettings } from './settings.service';
-import { Http , Headers} from '@angular/http';
+import { Http } from '@angular/http';
+import { Headers, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -10,11 +11,15 @@ export class LoginService {
  
   loginAutetication(user:usuario){
     let urlAPI = AppSettings.API_ENDPOINT+'login';
-    console.log(JSON.stringify({'json':user}));
-    let params = JSON.stringify({'json':user});
-    let headers      = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
-    return this.http.post(urlAPI,params,headers)
-      .map(res=>res.json())
+    let params = 'json='+JSON.stringify(user);
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(urlAPI,params,options)
+      .map(res=>
+      {
+      //  console.log(res.json());
+        return res.json();}
+      )
      ;
 
 

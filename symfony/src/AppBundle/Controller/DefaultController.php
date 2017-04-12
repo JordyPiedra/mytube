@@ -48,6 +48,9 @@ class DefaultController extends Controller
         $jwt_auth = $this->get('app.jwt_auth');
 
         $json=$request->get("json",null);
+   
+      // var_dump($request->request->all());
+      // die();
         if($json != null)
         {
             $params = json_decode($json);
@@ -60,7 +63,7 @@ class DefaultController extends Controller
             $validate_email=$this->get('validator')->validate($email,$emailConstraint);
             if(count($validate_email) ==0 && isset($password) && !empty($password)){
                  
-                 if($gethash)
+                 if($gethash || $gethash ==true)
                  $signup=$jwt_auth->signup($email,$password,true);
                  else
                  $signup=$jwt_auth->signup($email,$password);

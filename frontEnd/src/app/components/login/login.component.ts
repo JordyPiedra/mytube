@@ -9,12 +9,13 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginComponent implements OnInit {
  public user:any;
- public token:any;
+ public responseLogin:any;
+ public responseLoginToken:any;
   constructor( private loginService : LoginService) { 
  this.user={
-      useremail:"",
-      userpassword:"",
-      usergetHash :false
+      email:"",
+      password:"",
+      gethash :true
     };
 
   }
@@ -26,8 +27,28 @@ export class LoginComponent implements OnInit {
   onSubmit(){
     this.loginService.loginAutetication(this.user).subscribe(
       response =>{
-         this.token=response;
-         console.log(this.token);
+         this.responseLogin=response;
+            if(this.responseLogin.status=='success')
+            {
+              localStorage.setItem('identityToken', this.responseLogin.data.token);
+              //Obtener identificación del usuario
+              this.user.gethash=false;
+              this.loginService.loginAutetication(this.user).subscribe(
+                    response =>
+                    {
+                       this.responseLoginToken=response;
+                          localStorage.setItem('identity', JSON.stringify(this.responseLoginToken));
+                           
+                       
+                    }
+              );
+
+              
+
+
+            }else{
+              alert('Error: ' + this.responseLogin.data );
+            }
     }
     );
   }
