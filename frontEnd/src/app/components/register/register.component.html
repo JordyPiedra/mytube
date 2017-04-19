@@ -1,3 +1,51 @@
-<p>
-  register works!
-</p>
+<div class="container">
+  <h1>
+    {{titulo}}
+  </h1>
+  <div class="col-md-12">
+
+  
+  <form action=""  (ngSubmit)="onSubmit()" class="col-md-4">
+   <div class="uder-identity alert alert-success" *ngIf="status=='success'">
+       {{errorMessage}} 
+       <a [routerLink]="['/login']"> Inicia sesión aquí</a>
+      </div>
+       <div class="uder-identity alert alert-danger" *ngIf="status=='error'">
+        {{errorMessage}} 
+      </div>
+    <p>
+      <label for="user.name">Nombre:</label>
+        <input 
+         name="user.name"
+         [(ngModel)]="user.name"
+         type="text" class="form-control" required/>
+    </p>
+    <p>
+      <label for="user.email">Email:</label>
+        <input 
+         name="user.email"
+         [(ngModel)]="user.email"
+         type="email" class="form-control" required/>
+    </p>
+     <p>
+      <label for="user.username">Usuario:</label>
+        <input 
+         name="user.username"
+         [(ngModel)]="user.username"
+         type="text" class="form-control" required/>
+    </p>
+     <p>
+      <label for="user.password">Password:</label>
+        <input 
+         name="user.password"
+         [(ngModel)]="user.password"
+         type="password" class="form-control" required/>
+    </p>
+    <p>
+        <input  
+         type="submit" value="Registrarse" class="form-control" required/>
+    </p>
+
+  </form>
+  </div>
+</div>

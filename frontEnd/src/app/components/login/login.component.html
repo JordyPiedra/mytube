@@ -3,6 +3,14 @@
 <h1>Identifícate</h1>
 <hr>
   <div class="col-md-12">
+    <div class="identity-data" *ngIf="responseLogin ">
+      <div class="uder-identity alert alert-success" *ngIf="responseLogin.email">
+       Bienvenido{{responseLogin.name}}
+      </div>
+       <div class="uder-identity alert alert-danger" *ngIf="responseLogin.status">
+        Error en autenticación
+      </div>
+    </div>
      <form 
       (ngSubmit)="onSubmit()"
      action="#" class="col-md-4">

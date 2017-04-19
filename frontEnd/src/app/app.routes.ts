@@ -9,6 +9,7 @@ const routes: Routes = [
   //{ path:'' , redirectTo: '/index'} , 
   { path: 'index', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'login/:id', component: LoginComponent },
   { path: 'register', component: RegisterComponent }
 ];
 
