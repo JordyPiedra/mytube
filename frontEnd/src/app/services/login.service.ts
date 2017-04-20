@@ -53,6 +53,21 @@ export class LoginService {
 
  register(user){
     let urlAPI = AppSettings.API_ENDPOINT+'user/new';
+    let params = 'json='+JSON.stringify(user)+'&authorization='+this.getIdentityToken;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(urlAPI,params,options)
+      .map(res=>
+      {
+      //  console.log(res.json());
+        return res.json();}
+      )
+     ;
+
+
+  }
+  editUser(user){
+    let urlAPI = AppSettings.API_ENDPOINT+'user/edit/'+user.id+'/';
     let params = 'json='+JSON.stringify(user);
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' }); // ... Set content type to JSON
     let options = new RequestOptions({ headers: headers });
